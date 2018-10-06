@@ -1,15 +1,12 @@
 <resources>
     <string name="app_name">LoftCoin</string>
-
-    <string name="welcome_title_1">Покупка и продажа</string>
-    <string name="welcome_title_2">Курс криптовалют</string>
-    <string name="welcome_title_3">Конвертер валют</string>
+    
+    <string name="welcome_title_1">Buying and selling</string>
+    <string name="welcome_title_2">Cryptocurrency rate</string>
+    <string name="welcome_title_3">Converter</string>
     <string name="welcome_subtitle_1">Покупай когда дешево, продавай когда дорого.</string>
     <string name="welcome_subtitle_2">Следуй за курсом валют и вовремя реагируй на изменения динамики цены.</string>
     <string name="welcome_subtitle_3">Узнай сколько эфира в 1.23 биткоина.</string>
-    <string name="welcome_start_btn">Начать</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_start_btn">Start</string>
 
 </resources>
