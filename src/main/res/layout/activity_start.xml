@@ -24,6 +24,7 @@
 
 
     <ImageView
+        android:id="@+id/start_bottom_corner"
         android:layout_width="300dp"
         android:layout_height="300dp"
         app:srcCompat="@drawable/artboard_r"
