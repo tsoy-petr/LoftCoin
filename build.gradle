@@ -26,6 +26,8 @@ android {
 ext {
     butterknife_version = "8.8.1"
     support_version = "27.1.1"
+    retrofit_ver = "2.4.0"
+    okhttp_ver = "3.10.0"
 }
 
 dependencies {
@@ -37,11 +39,17 @@ dependencies {
     // Для точек в pager
     implementation 'com.romandanylyk:pageindicatorview:1.0.2'
 
-    // butterknife
+    //ButterKnife
     implementation "com.jakewharton:butterknife:$butterknife_version"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
 
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_ver"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_ver"
 
+    // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_ver"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_ver"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
