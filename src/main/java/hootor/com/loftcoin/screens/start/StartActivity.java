@@ -17,6 +17,7 @@ import hootor.com.loftcoin.App;
 import hootor.com.loftcoin.R;
 import hootor.com.loftcoin.data.api.Api;
 import hootor.com.loftcoin.data.prefs.Prefs;
+import hootor.com.loftcoin.screens.main.MainActivity;
 
 public class StartActivity extends AppCompatActivity implements StartView {
 
@@ -69,12 +70,6 @@ public class StartActivity extends AppCompatActivity implements StartView {
         outerAnimator.setRepeatCount(ValueAnimator.INFINITE);
         outerAnimator.setInterpolator(new LinearInterpolator());
 
-//        ObjectAnimator outerCircleAnimator = ObjectAnimator.ofFloat(outerCircle, "rotation", 0, 360);
-//        outerAnimator.setDuration(5000);
-//        outerAnimator.setRepeatMode(ValueAnimator.RESTART);
-//        outerAnimator.setRepeatCount(ValueAnimator.INFINITE);
-//        outerAnimator.setInterpolator(new LinearInterpolator());
-
         AnimatorSet set = new AnimatorSet();
         set.play(innerAnimator).with(outerAnimator);
         set.start();
@@ -98,6 +93,6 @@ public class StartActivity extends AppCompatActivity implements StartView {
 
     @Override
     public void navigateToMainScreen() {
-//        MainActivity.startInNewTask(this);
+        MainActivity.startInNewTask(this);
     }
 }

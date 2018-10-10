@@ -5,6 +5,11 @@ import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import hootor.com.loftcoin.R;
+
 public class WelcomePage implements Parcelable {
 
     @DrawableRes
@@ -62,5 +67,20 @@ public class WelcomePage implements Parcelable {
         dest.writeInt(icon);
         dest.writeInt(title);
         dest.writeInt(subtitle);
+    }
+
+    public static List<WelcomePage> createList() {
+        List<WelcomePage> pages = new ArrayList<>();
+        pages.add(
+                new WelcomePage(R.drawable.image_welcome_page_1, R.string.welcome_title_1, R.string.welcome_subtitle_1)
+        );
+        pages.add(
+                new WelcomePage(R.drawable.image_welcome_page_2, R.string.welcome_title_2, R.string.welcome_subtitle_2)
+        );
+        pages.add(
+                new WelcomePage(R.drawable.image_welcome_page_3, R.string.welcome_title_3, R.string.welcome_subtitle_3)
+        );
+
+        return pages;
     }
 }
