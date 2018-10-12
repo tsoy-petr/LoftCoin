@@ -2,7 +2,7 @@ package hootor.com.loftcoin.data.api.model;
 
 import com.google.gson.annotations.SerializedName;
 
-class Quote {
+public class Quote {
 
     public Double price;
 

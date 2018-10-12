@@ -4,6 +4,16 @@
     <color name="colorPrimaryDark">#191a29</color>
     <color name="colorAccent">#66688F</color>
 
-    <color name="white">#ffffff</color>
+    <color name="green">#3DE77B</color>
+    <color name="red">#FF4464</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="white60">#99FFFFFF</color>
+
+    <color name="rate_item_background_even">#212237</color>
+    <color name="rate_item_background_odd">@color/colorPrimary</color>
+
+    <color name="percent_change_up">@color/green</color>
+    <color name="percent_change_down">@color/red</color>
 
 </resources>
