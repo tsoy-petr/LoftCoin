@@ -22,7 +22,9 @@ import butterknife.Unbinder;
 import hootor.com.loftcoin.App;
 import hootor.com.loftcoin.R;
 import hootor.com.loftcoin.data.api.Api;
-import hootor.com.loftcoin.data.api.model.Coin;
+import hootor.com.loftcoin.data.db.Database;
+import hootor.com.loftcoin.data.db.model.CoinEntity;
+import hootor.com.loftcoin.data.db.model.CoinEntityMapper;
 import hootor.com.loftcoin.data.prefs.Prefs;
 
 public class RateFragment extends Fragment implements RateView{
@@ -55,8 +57,10 @@ public class RateFragment extends Fragment implements RateView{
 
         Api api = ((App) getActivity().getApplication()).getApi();
         Prefs prefs = ((App) getActivity().getApplication()).getPrefs();
+        Database database = ((App) getActivity().getApplication()).getDatabase();
+        CoinEntityMapper mapper = new CoinEntityMapper();
 
-        presenter = new RatePresenterImpl(api, prefs);
+        presenter = new RatePresenterImpl(api, prefs, database, mapper);
 
         adapter = new RateAdapter(prefs);
         adapter.setHasStableIds(true);
@@ -100,7 +104,7 @@ public class RateFragment extends Fragment implements RateView{
 
 
     @Override
-    public void setCoins(List<Coin> coins) {
+    public void setCoins(List<CoinEntity> coins) {
         adapter.setCoins(coins);
     }
 

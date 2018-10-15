@@ -16,6 +16,8 @@ import butterknife.Unbinder;
 import hootor.com.loftcoin.App;
 import hootor.com.loftcoin.R;
 import hootor.com.loftcoin.data.api.Api;
+import hootor.com.loftcoin.data.db.Database;
+import hootor.com.loftcoin.data.db.model.CoinEntityMapper;
 import hootor.com.loftcoin.data.prefs.Prefs;
 import hootor.com.loftcoin.screens.main.MainActivity;
 
@@ -49,9 +51,13 @@ public class StartActivity extends AppCompatActivity implements StartView {
 
         Api api = ((App) getApplication()).getApi();
         Prefs prefs = ((App) getApplication()).getPrefs();
+        Database database = ((App) getApplication()).getDatabase();
+        CoinEntityMapper mapper = new CoinEntityMapper();
 
-        presenter = new StartPresenterImpl(api, prefs);
+        presenter = new StartPresenterImpl(api, prefs, database, mapper);
         presenter.attachView(this);
+
+
         presenter.loadRate();
 
     }

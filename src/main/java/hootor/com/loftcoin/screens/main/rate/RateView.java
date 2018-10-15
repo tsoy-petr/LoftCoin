@@ -2,10 +2,10 @@ package hootor.com.loftcoin.screens.main.rate;
 
 import java.util.List;
 
-import hootor.com.loftcoin.data.api.model.Coin;
+import hootor.com.loftcoin.data.db.model.CoinEntity;
 
 public interface RateView {
-    void setCoins(List<Coin> coins);
+    void setCoins(List<CoinEntity> coins);
 
     void setRefreshing(Boolean refreshing);
 
