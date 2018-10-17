@@ -4,6 +4,7 @@ import java.util.List;
 
 import hootor.com.loftcoin.data.db.Database;
 import hootor.com.loftcoin.data.db.model.CoinEntity;
+import io.reactivex.Flowable;
 
 public class DatabaseImplRoom implements Database {
     private AppDatabase database;
@@ -18,7 +19,7 @@ public class DatabaseImplRoom implements Database {
     }
 
     @Override
-    public List<CoinEntity> getCoins() {
+    public Flowable<List<CoinEntity>> getCoins() {
         return database.coinDao().getCoins();
     }
 }
