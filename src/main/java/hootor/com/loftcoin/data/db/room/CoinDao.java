@@ -12,6 +12,7 @@ import io.reactivex.Flowable;
 
 @Dao
 public interface CoinDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveCoins(List<CoinEntity> coins);
 

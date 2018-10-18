@@ -83,6 +83,7 @@ public class RatePresenterImpl implements RatePresenter {
                                         view.setRefreshing(false);
                                     }
                                 }
+
                         )
         );
     }

@@ -38,6 +38,7 @@ ext {
     room_ver = "1.1.1"
     rx_java_ver = "2.2.2"
     rx_android_ver = "2.1.0"
+    rx_binding_ver = "2.1.1"
 }
 
 dependencies {
@@ -72,6 +73,7 @@ dependencies {
     // RxJava
     implementation "io.reactivex.rxjava2:rxjava:$rx_java_ver"
     implementation "io.reactivex.rxjava2:rxandroid:$rx_android_ver"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rx_binding_ver"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
