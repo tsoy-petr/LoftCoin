@@ -16,4 +16,13 @@
     <color name="percent_change_up">@color/green</color>
     <color name="percent_change_down">@color/red</color>
 
+    <color name="gray_5">#9C9EB9</color>
+    <color name="gray_10">#66688F</color>
+    <color name="gray_20">#51526B</color>
+    <color name="gray_40">#3F415D</color>
+    <color name="gray_50">#313249</color>
+    <color name="gray_60">#2E2F47</color>
+    <color name="gray_80">#191A2A</color>
+    <color name="gray_100">#10101A</color>
+
 </resources>
