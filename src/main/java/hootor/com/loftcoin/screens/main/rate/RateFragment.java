@@ -30,7 +30,7 @@ import hootor.com.loftcoin.data.db.model.CoinEntityMapper;
 import hootor.com.loftcoin.data.model.Fiat;
 import hootor.com.loftcoin.data.prefs.Prefs;
 
-public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuItemClickListener, CurrencyDialog.CurrencyDialogListener{
+public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuItemClickListener, CurrencyDialog.CurrencyDialogListener {
 
     private static final String LAYOUT_MANAGER_STATE = "layout_manager_state";
 
@@ -114,7 +114,6 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
         }
 
 
-
         presenter.attachView(this);
         presenter.getRate();
     }
@@ -179,5 +178,27 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
     @Override
     public void hideProgress() {
         progress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setCurrencyImage(Fiat currency) {
+
+        MenuItem menuItem = toolbar.getMenu().findItem(R.id.menu_item_currency);
+
+        if (menuItem != null) {
+            switch (currency) {
+                case EUR:
+                    menuItem.setIcon(R.drawable.currency_eur);
+                    break;
+                case RUB:
+                    menuItem.setIcon(R.drawable.currency_rub);
+                    break;
+                case USD:
+                    menuItem.setIcon(R.drawable.ic_menu_currency);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

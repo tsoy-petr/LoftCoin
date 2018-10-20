@@ -119,6 +119,7 @@ public class RatePresenterImpl implements RatePresenter {
     @Override
     public void onFiatCurrencySelected(Fiat currency) {
         prefs.setFiatCurrency(currency);
+        view.setCurrencyImage(currency);
         loadRate(false);
     }
 }
