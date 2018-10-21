@@ -14,21 +14,31 @@ import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 
 public class ConverterViewModelImpl implements ConverterViewModel {
+
     private static final String KEY_SOURCE_CURRENCY = "source_currency";
     private static final String KEY_DESTINATION_CURRENCY = "destination_currency";
+
     private BehaviorSubject<String> sourceCurrency = BehaviorSubject.create();
     private BehaviorSubject<String> destinationCurrency = BehaviorSubject.create();
     private BehaviorSubject<String> destinationAmount = BehaviorSubject.create();
+
     private PublishSubject<Object> selectSourceCurrency = PublishSubject.create();
     private PublishSubject<Object> selectDestinationCurrency = PublishSubject.create();
+
     private String sourceAmountValue = "";
+
     private CoinEntity sourceCoin;
     private CoinEntity destinationCoin;
+
     private String sourceCurrencySymbol = "BTC";
     private String destinationCurrencySymbol = "ETH";
+
     private Database database;
+
     private CurrencyFormatter currencyFormatter = new CurrencyFormatter();
+
     private CompositeDisposable disposables = new CompositeDisposable();
+
     ConverterViewModelImpl(Bundle savedInstanceState, Database database) {
         this.database = database;
         if (savedInstanceState != null) {
@@ -78,7 +88,7 @@ public class ConverterViewModelImpl implements ConverterViewModel {
         if (sourceAmountValue.isEmpty()) {
             destinationAmount.onNext("");
             return;
-        }
+       }
         if (sourceCoin == null || destinationCoin == null) {
             return;
         }

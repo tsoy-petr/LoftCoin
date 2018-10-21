@@ -14,6 +14,7 @@ import butterknife.Unbinder;
 import hootor.com.loftcoin.R;
 import hootor.com.loftcoin.screens.main.converter.ConverterFragment;
 import hootor.com.loftcoin.screens.main.rate.RateFragment;
+import hootor.com.loftcoin.utils.BottomNavigationViewHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             navigation.setSelectedItemId(R.id.menu_item_rate);
         }
+
+        BottomNavigationViewHelper.removeShiftMode(navigation);
 
     }
 

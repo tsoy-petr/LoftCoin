@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +29,7 @@ import hootor.com.loftcoin.data.db.model.CoinEntity;
 import hootor.com.loftcoin.data.model.Currency;
 import hootor.com.loftcoin.screens.currencies.CurrenciesBottomSheet;
 import hootor.com.loftcoin.screens.currencies.CurrenciesBottomSheetListener;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -51,22 +54,26 @@ public class ConverterFragment extends Fragment {
     TextView destinationCurrencySymbolName;
     private ConverterViewModel viewModel;
     private CompositeDisposable disposables = new CompositeDisposable();
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         viewModel.saveState(outState);
         super.onSaveInstanceState(outState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_converter, container, false);
     }
+
     @Override
     public void onDestroy() {
         disposables.dispose();
         super.onDestroy();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -94,10 +101,18 @@ public class ConverterFragment extends Fragment {
         initOutputs();
         initInputs();
     }
+
     private void initOutputs() {
-        Disposable disposable1 = RxTextView.afterTextChangeEvents(sourceAmount).subscribe(event ->
-                viewModel.onSourceAmountChange(event.editable().toString())
-        );
+        Disposable disposable1 = RxTextView.afterTextChangeEvents(sourceAmount)
+                .debounce(200, TimeUnit.MILLISECONDS)
+                .filter(textViewAfterTextChangeEvent -> {
+                    String textSouse = textViewAfterTextChangeEvent.editable().toString();
+                    return !TextUtils.isEmpty(textSouse);
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event ->
+                        viewModel.onSourceAmountChange(event.editable().toString())
+                );
         sourceCurrency.setOnClickListener(v ->
                 viewModel.onSourceCurrencyClick()
         );
@@ -106,6 +121,7 @@ public class ConverterFragment extends Fragment {
         );
         disposables.add(disposable1);
     }
+
     private void initInputs() {
         Disposable disposable1 = viewModel.sourceCurrency().subscribe(currency ->
                 bindCurrency(currency, sourceCurrencySymbolIcon, sourceCurrencySymbolText, sourceCurrencySymbolName)
@@ -128,6 +144,7 @@ public class ConverterFragment extends Fragment {
         disposables.add(disposable4);
         disposables.add(disposable5);
     }
+
     private void showCurrenciesBottomSheet(boolean source) {
         CurrenciesBottomSheet bottomSheet = new CurrenciesBottomSheet();
         if (source) {
@@ -138,6 +155,7 @@ public class ConverterFragment extends Fragment {
             bottomSheet.setListener(destinationListner);
         }
     }
+
     private CurrenciesBottomSheetListener sourceListener = new CurrenciesBottomSheetListener() {
         @Override
         public void onCurrencySelected(CoinEntity coin) {
@@ -159,6 +177,7 @@ public class ConverterFragment extends Fragment {
             0xFFFF7416,
             0xFF534FFF,
     };
+
     private void bindCurrency(String curr, ImageView symbolIcon, TextView symbolText, TextView currencyName) {
         Currency currency = Currency.getCurrency(curr);
         if (currency != null) {
