@@ -47,6 +47,7 @@ public class ConverterViewModelImpl implements ConverterViewModel {
         }
         loadCoins();
     }
+
     private void loadCoins() {
         Disposable disposable1 = Observable.fromCallable(() -> database.getCoin(sourceCurrencySymbol))
                 .subscribeOn(Schedulers.io())
@@ -59,36 +60,43 @@ public class ConverterViewModelImpl implements ConverterViewModel {
         disposables.add(disposable1);
         disposables.add(disposable2);
     }
+
     @Override
     public Observable<String> sourceCurrency() {
         return sourceCurrency;
     }
+
     @Override
     public Observable<String> destinationCurrency() {
         return destinationCurrency;
     }
+
     @Override
     public Observable<String> destinationAmount() {
         return destinationAmount;
     }
+
     @Override
     public Observable<Object> selectSourceCurrency() {
         return selectSourceCurrency;
     }
+
     @Override
     public Observable<Object> selectDestinationCurrency() {
         return selectDestinationCurrency;
     }
+
     @Override
     public void onSourceAmountChange(String amount) {
         sourceAmountValue = amount;
         convert();
     }
+
     private void convert() {
         if (sourceAmountValue.isEmpty()) {
             destinationAmount.onNext("");
             return;
-       }
+        }
         if (sourceCoin == null || destinationCoin == null) {
             return;
         }
@@ -97,14 +105,17 @@ public class ConverterViewModelImpl implements ConverterViewModel {
         String destinationAmountValue = String.valueOf(currencyFormatter.formatForConverter(destinationValue));
         destinationAmount.onNext(destinationAmountValue);
     }
+
     @Override
     public void onSourceCurrencyClick() {
         selectSourceCurrency.onNext(new Object());
     }
+
     @Override
     public void onDestinationCurrencyClick() {
         selectDestinationCurrency.onNext(new Object());
     }
+
     @Override
     public void onSourceCurrencySelected(CoinEntity coin) {
         sourceCoin = coin;
@@ -112,6 +123,7 @@ public class ConverterViewModelImpl implements ConverterViewModel {
         sourceCurrency.onNext(coin.symbol);
         convert();
     }
+
     @Override
     public void onDestinationCurrencySelected(CoinEntity coin) {
         destinationCoin = coin;
@@ -119,6 +131,7 @@ public class ConverterViewModelImpl implements ConverterViewModel {
         destinationCurrency.onNext(coin.symbol);
         convert();
     }
+
     @Override
     public void saveState(Bundle outState) {
         outState.putString(KEY_SOURCE_CURRENCY, sourceCurrencySymbol);

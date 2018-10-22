@@ -37,6 +37,7 @@ public class RatePresenterImpl implements RatePresenter {
     @Override
     public void attachView(RateView view) {
         this.view = view;
+        view.setCurrencyImage(prefs.getFiatCurrency());
     }
 
     @Override

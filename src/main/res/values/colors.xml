@@ -16,6 +16,9 @@
     <color name="percent_change_up">@color/green</color>
     <color name="percent_change_down">@color/red</color>
 
+    <color name="wallet_card_background">#2E2F47</color>
+    <color name="secondary_text_color_dark">#66688F</color>
+
     <color name="gray_5">#9C9EB9</color>
     <color name="gray_10">#66688F</color>
     <color name="gray_20">#51526B</color>

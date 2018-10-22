@@ -14,7 +14,7 @@ import butterknife.Unbinder;
 import hootor.com.loftcoin.R;
 import hootor.com.loftcoin.screens.main.converter.ConverterFragment;
 import hootor.com.loftcoin.screens.main.rate.RateFragment;
-import hootor.com.loftcoin.utils.BottomNavigationViewHelper;
+import hootor.com.loftcoin.screens.main.wallets.WalletsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,14 +44,12 @@ public class MainActivity extends AppCompatActivity {
             navigation.setSelectedItemId(R.id.menu_item_rate);
         }
 
-        BottomNavigationViewHelper.removeShiftMode(navigation);
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationListener = item -> {
         switch (item.getItemId()){
             case R.id.menu_item_accounts:
-//                showWalletsFragment();
+                showWalletsFragment();
                 break;
             case R.id.menu_item_rate:
                 showRateFragment();
@@ -70,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    //    private void showWalletsFragment() {
-//        WalletsFragment fragment = new WalletsFragment();
-//        FragmentManager fm = getSupportFragmentManager();
-//        FragmentTransaction transaction = fm.beginTransaction();
-//        transaction.replace(R.id.fragment_container, fragment);
-//        transaction.commit();
-//    }
+        private void showWalletsFragment() {
+        WalletsFragment fragment = new WalletsFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
+    }
 
     private void showRateFragment() {
         RateFragment fragment = new RateFragment();

@@ -183,6 +183,8 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
     @Override
     public void setCurrencyImage(Fiat currency) {
 
+        if(currency == null) return;
+
         MenuItem menuItem = toolbar.getMenu().findItem(R.id.menu_item_currency);
 
         if (menuItem != null) {

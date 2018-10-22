@@ -20,13 +20,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class CurrenciesBottomSheet extends BottomSheetDialogFragment implements CurrenciesAdapterListener  {
+public class CurrenciesBottomSheet extends BottomSheetDialogFragment implements CurrenciesAdapterListener {
+
+    public static final String TAG = "CurrenciesBottomSheet";
+
     @BindView(R.id.recycler)
     RecyclerView recycler;
+
     private Database database;
     private CurrenciesAdapter adapter;
     private CurrenciesBottomSheetListener listener;
     private CompositeDisposable disposables = new CompositeDisposable();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +39,13 @@ public class CurrenciesBottomSheet extends BottomSheetDialogFragment implements 
         adapter = new CurrenciesAdapter();
         adapter.setListener(this);
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.bottom_sheet_currencies, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -52,15 +59,19 @@ public class CurrenciesBottomSheet extends BottomSheetDialogFragment implements 
                         coins -> adapter.setCoins(coins)
                 );
         disposables.add(disposable);
+
     }
+
     @Override
     public void onDestroy() {
         disposables.clear();
         super.onDestroy();
     }
+
     public void setListener(CurrenciesBottomSheetListener listener) {
         this.listener = listener;
     }
+
     @Override
     public void onCurrencyClick(CoinEntity coin) {
         dismiss();
