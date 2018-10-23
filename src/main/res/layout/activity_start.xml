@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.start.StartActivity">
+
+
+    <ImageView
+        android:id = "@+id/start_outer_circle"
+        android:layout_width = "160dp"
+        android:layout_height = "160dp"
+        android:layout_marginStart = "@dimen/small_margin"
+        android:layout_marginTop ="@dimen/small_margin"
+        android:layout_marginEnd = "@dimen/small_margin"
+        android:layout_marginBottom = "@dimen/small_margin"
+
+        android:background="@drawable/icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/start_bottom_corner"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:translationX="130dp"
+        android:translationY="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/artboard_r" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_activity_start"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/start_outer_circle" />
+
+    <ImageView
+        android:id="@+id/start_top_corner"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:translationX="-101dp"
+        app:srcCompat="@drawable/artboard_l" />
+
+</android.support.constraint.ConstraintLayout>
