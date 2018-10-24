@@ -4,11 +4,14 @@ import java.util.List;
 
 import hootor.com.loftcoin.data.db.Database;
 import hootor.com.loftcoin.data.db.model.CoinEntity;
+import hootor.com.loftcoin.data.db.model.Transaction;
+import hootor.com.loftcoin.data.db.model.TransactionModel;
 import hootor.com.loftcoin.data.db.model.Wallet;
 import hootor.com.loftcoin.data.db.model.WalletModel;
 import io.reactivex.Flowable;
 
 public class DatabaseImplRoom implements Database {
+
     private AppDatabase database;
 
     public DatabaseImplRoom(AppDatabase database) {
@@ -38,6 +41,16 @@ public class DatabaseImplRoom implements Database {
     @Override
     public void saveWallet(Wallet wallet) {
         database.walletDao().saveWallet(wallet);
+    }
+
+    @Override
+    public void saveTransaction(List<Transaction> transactions) {
+        database.walletDao().saveTransactions(transactions);
+    }
+
+    @Override
+    public Flowable<List<TransactionModel>> getTransactions(String walletId) {
+        return database.walletDao().getTransactions(walletId);
     }
 
 }

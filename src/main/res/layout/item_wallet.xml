@@ -13,6 +13,8 @@
         android:layout_marginBottom="26dp"
         app:cardBackgroundColor="@color/wallet_card_background"
         app:cardCornerRadius="12dp"
+
+        android:layoutAnimation="@anim/popinlayout"
 >
 
         <RelativeLayout

@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Unbinder unbinder;
 
     @BindView(R.id.bottom_navigation)
-    BottomNavigationView navigation;
+    public BottomNavigationView navigation;
 
     public static void startInNewTask(Context context) {
         Intent starter = new Intent(context, MainActivity.class);

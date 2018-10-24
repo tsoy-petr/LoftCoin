@@ -13,36 +13,57 @@
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary" />
 
-    <FrameLayout
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="212dp">
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/wallets_pager"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="212dp">
 
 
-        </android.support.v4.view.ViewPager>
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/wallets_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/new_wallet"
-            android:layout_width="240dp"
-            android:layout_height="160dp"
-            android:layout_gravity="center"
-            app:cardBackgroundColor="@color/wallet_card_background"
-            app:cardCornerRadius="12dp">
 
-            <ImageView
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_wallet_add" />
-        </android.support.v7.widget.CardView>
-    </FrameLayout>
+                </android.support.v4.view.ViewPager>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/transactions_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/new_wallet"
+                    android:layout_width="240dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/wallet_card_background"
+                    app:cardCornerRadius="12dp">
+
+                    <ImageView
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_wallet_add" />
+                </android.support.v7.widget.CardView>
+
+
+            </FrameLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/transactions_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
