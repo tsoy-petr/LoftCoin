@@ -81,6 +81,10 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
         toolbar.setTitle(R.string.accounts_screen_title);
         toolbar.inflateMenu(R.menu.menu_wallets);
 
+//        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+//        ((MainActivity) getActivity()).getSupportActionBar().setTitle(null);
+//        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         transactionsRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         transactionsRecycler.setHasFixedSize(true);
         transactionsRecycler.setAdapter(transactionsAdapter);
