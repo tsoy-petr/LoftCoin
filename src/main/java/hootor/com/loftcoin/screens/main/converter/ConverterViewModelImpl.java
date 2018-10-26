@@ -6,10 +6,8 @@ import hootor.com.loftcoin.data.db.Database;
 import hootor.com.loftcoin.data.db.model.CoinEntity;
 import hootor.com.loftcoin.utils.CurrencyFormatter;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 
@@ -41,6 +39,9 @@ public class ConverterViewModelImpl implements ConverterViewModel {
 
     ConverterViewModelImpl(Bundle savedInstanceState, Database database) {
         this.database = database;
+
+        database.open();
+
         if (savedInstanceState != null) {
             sourceCurrencySymbol = savedInstanceState.getString(KEY_SOURCE_CURRENCY);
             destinationCurrencySymbol = savedInstanceState.getString(KEY_DESTINATION_CURRENCY);
@@ -49,16 +50,16 @@ public class ConverterViewModelImpl implements ConverterViewModel {
     }
 
     private void loadCoins() {
+
         Disposable disposable1 = Observable.fromCallable(() -> database.getCoin(sourceCurrencySymbol))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSourceCurrencySelected);
+
         Disposable disposable2 = Observable.fromCallable(() -> database.getCoin(destinationCurrencySymbol))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onDestinationCurrencySelected);
+
         disposables.add(disposable1);
         disposables.add(disposable2);
+
     }
 
     @Override
@@ -137,4 +138,10 @@ public class ConverterViewModelImpl implements ConverterViewModel {
         outState.putString(KEY_SOURCE_CURRENCY, sourceCurrencySymbol);
         outState.putString(KEY_DESTINATION_CURRENCY, destinationCurrencySymbol);
     }
+
+    @Override
+    public void onDetach() {
+        database.close();
+    }
+
 }

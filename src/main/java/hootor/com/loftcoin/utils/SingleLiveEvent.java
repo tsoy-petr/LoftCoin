@@ -15,12 +15,15 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
 
     private AtomicBoolean pending = new AtomicBoolean(false);
 
+
     @Override
     @MainThread
     public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<T> observer) {
+
         if (hasActiveObservers()) {
             Log.w(TAG, "Multiple observers registered but only one will be notified of changes.");
         }
+
         super.observe(owner, t -> {
             if (pending.compareAndSet(true, false)) {
                 observer.onChanged(t);
@@ -35,7 +38,7 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
         super.setValue(value);
     }
 
-    void call() {
+    public void call() {
         setValue(null);
     }
 }

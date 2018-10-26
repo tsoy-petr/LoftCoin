@@ -1,13 +1,11 @@
 package hootor.com.loftcoin.data.db.model;
 
-import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-
 import hootor.com.loftcoin.data.model.Fiat;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-@Entity(tableName = "Coin")
-public class CoinEntity {
+
+public class CoinEntity extends RealmObject {
 
     @PrimaryKey
     public int id;
@@ -18,11 +16,10 @@ public class CoinEntity {
     public int rank;
     public long updated;
 
-    @Embedded(prefix = "usd_")
     public QuoteEntity usd;
-    @Embedded(prefix = "rub_")
+
     public QuoteEntity rub;
-    @Embedded(prefix = "eur_")
+
     public QuoteEntity eur;
 
     public QuoteEntity getQuote(Fiat fiat) {

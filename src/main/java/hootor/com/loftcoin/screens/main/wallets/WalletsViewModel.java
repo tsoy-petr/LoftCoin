@@ -8,14 +8,15 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import hootor.com.loftcoin.data.db.model.CoinEntity;
-import hootor.com.loftcoin.data.db.model.TransactionModel;
-import hootor.com.loftcoin.data.db.model.WalletModel;
+import hootor.com.loftcoin.data.db.model.Transaction;
+import hootor.com.loftcoin.data.db.model.Wallet;
 
 public abstract class WalletsViewModel extends AndroidViewModel {
 
     public WalletsViewModel(@NonNull Application application) {
         super(application);
     }
+
 
     public abstract void getWallets();
 
@@ -26,9 +27,9 @@ public abstract class WalletsViewModel extends AndroidViewModel {
     public abstract void onWalletChanged(int position);
 
 
-    public abstract LiveData<List<WalletModel>> wallets();
+    public abstract LiveData<List<Wallet>> wallets();
 
-    public abstract LiveData<List<TransactionModel>> transactions();
+    public abstract LiveData<List<Transaction>> transactions();
 
 
     public abstract LiveData<Boolean> walletsVisible();
@@ -36,5 +37,8 @@ public abstract class WalletsViewModel extends AndroidViewModel {
     public abstract LiveData<Boolean> newWalletVisible();
 
     public abstract LiveData<Object> selectCurrency();
+
+    public abstract LiveData<Object> scrollToNewWallet();
+
 
 }

@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,8 @@ import hootor.com.loftcoin.screens.main.wallets.adapters.TransactionsAdapter;
 import hootor.com.loftcoin.screens.main.wallets.adapters.WalletsPagerAdapter;
 
 public class WalletsFragment extends Fragment implements CurrenciesBottomSheetListener {
+
+    private static final String TAG = "WalletsFragment";
 
     private static final String VIEW_PAGER_POS = "view_page_pos";
 
@@ -80,10 +83,6 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
 
         toolbar.setTitle(R.string.accounts_screen_title);
         toolbar.inflateMenu(R.menu.menu_wallets);
-
-//        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-//        ((MainActivity) getActivity()).getSupportActionBar().setTitle(null);
-//        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         transactionsRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         transactionsRecycler.setHasFixedSize(true);
@@ -157,6 +156,11 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
 
         viewModel.selectCurrency().observe(this, o -> {
             showCurrenciesBottomSheet();
+        });
+
+        viewModel.scrollToNewWallet().observe(this, o -> {
+            Log.d(TAG, "scrollToNewWallet");
+            walletsPager.setCurrentItem(walletsPagerAdapter.getCount() - 1, true);
         });
 
     }
