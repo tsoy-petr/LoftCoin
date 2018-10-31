@@ -53,10 +53,13 @@ public class RatePresenterImpl implements RatePresenter {
     @Override
     public void getRate() {
         Disposable disposable = mainDatabase.getCoins()
+                .replay(1)
+                .autoConnect(1)
                 .subscribe(
                         coinEntities -> {
                             if (view != null) {
                                 view.setCoins(coinEntities);
+                                view.setCurrencyImage(prefs.getFiatCurrency());
                             }
                         },
 
@@ -85,6 +88,8 @@ public class RatePresenterImpl implements RatePresenter {
                     workerDatabase.close();
                     return new Object();
                 })
+                .replay(1)
+                .autoConnect(1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         object -> {

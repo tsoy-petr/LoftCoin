@@ -1,6 +1,7 @@
 package hootor.com.loftcoin.data.model;
 
 public enum Fiat {
+
     USD("$"),
     EUR("€"),
     RUB("₽");
