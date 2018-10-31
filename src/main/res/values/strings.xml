@@ -38,4 +38,7 @@
 
     <string name="accounts_screen_title">Кошельки</string>
 
+    <string name="notification_channel_rate_changed">Изменение курса</string>
+    <string name="notification_rate_changed_body">Курс изменился %s</string>
+
 </resources>

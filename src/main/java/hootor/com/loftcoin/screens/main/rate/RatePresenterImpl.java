@@ -7,6 +7,7 @@ import hootor.com.loftcoin.data.db.Database;
 import hootor.com.loftcoin.data.db.model.CoinEntityMapper;
 import hootor.com.loftcoin.data.model.Fiat;
 import hootor.com.loftcoin.data.prefs.Prefs;
+import hootor.com.loftcoin.job.JobHelper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -21,19 +22,26 @@ public class RatePresenterImpl implements RatePresenter {
     private Database workerDatabase;
     private CoinEntityMapper mapper;
 
+    private JobHelper jobHelper;
+
     private CompositeDisposable disposables = new CompositeDisposable();
 
 
     @Nullable
     private RateView view;
 
-    public RatePresenterImpl(Api api, Prefs prefs, Database mainDatabase, Database workerDatabase, CoinEntityMapper mapper) {
+    public RatePresenterImpl(Api api, Prefs prefs,
+                             Database mainDatabase,
+                             Database workerDatabase,
+                             CoinEntityMapper mapper,
+                             JobHelper jobHelper) {
         this.api = api;
         this.prefs = prefs;
         this.prefs = prefs;
         this.mainDatabase = mainDatabase;
         this.workerDatabase = workerDatabase;
         this.mapper = mapper;
+        this.jobHelper = jobHelper;
     }
 
 
@@ -132,5 +140,10 @@ public class RatePresenterImpl implements RatePresenter {
         prefs.setFiatCurrency(currency);
         view.setCurrencyImage(currency);
         loadRate(false);
+    }
+
+    @Override
+    public void onRateLongClick(String symbol) {
+        jobHelper.startSyncRateJob(symbol);
     }
 }

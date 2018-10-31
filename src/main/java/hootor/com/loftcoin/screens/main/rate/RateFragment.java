@@ -29,8 +29,14 @@ import hootor.com.loftcoin.data.db.model.CoinEntity;
 import hootor.com.loftcoin.data.db.model.CoinEntityMapper;
 import hootor.com.loftcoin.data.model.Fiat;
 import hootor.com.loftcoin.data.prefs.Prefs;
+import hootor.com.loftcoin.job.JobHelper;
+import hootor.com.loftcoin.job.JobHelperImpl;
 
-public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuItemClickListener, CurrencyDialog.CurrencyDialogListener {
+public class RateFragment extends Fragment
+        implements RateView,
+        Toolbar.OnMenuItemClickListener,
+        CurrencyDialog.CurrencyDialogListener,
+        RateAdapter.Listener {
 
     private static final String LAYOUT_MANAGER_STATE = "layout_manager_state";
 
@@ -75,10 +81,13 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
 
         CoinEntityMapper mapper = new CoinEntityMapper();
 
-        presenter = new RatePresenterImpl(api, prefs, mainDatabase, workerDatabase, mapper);
+        JobHelper jobHelper = new JobHelperImpl(getContext());
+
+        presenter = new RatePresenterImpl(api, prefs, mainDatabase, workerDatabase, mapper, jobHelper);
 
         adapter = new RateAdapter(prefs);
         adapter.setHasStableIds(true);
+        adapter.setListener(this);
     }
 
     @Override
@@ -186,7 +195,7 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
     @Override
     public void setCurrencyImage(Fiat currency) {
 
-        if(currency == null) return;
+        if (currency == null) return;
 
         MenuItem menuItem = toolbar.getMenu().findItem(R.id.menu_item_currency);
 
@@ -205,5 +214,10 @@ public class RateFragment extends Fragment implements RateView, Toolbar.OnMenuIt
                     break;
             }
         }
+    }
+
+    @Override
+    public void onRateLongClick(String symbol) {
+        presenter.onRateLongClick(symbol);
     }
 }
