@@ -163,6 +163,10 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
             walletsPager.setCurrentItem(walletsPagerAdapter.getCount() - 1, true);
         });
 
+        viewModel.currentNewWallet().observe(this, o -> {
+            showCurrenciesBottomSheet();
+        });
+
     }
 
     private void showCurrenciesBottomSheet() {

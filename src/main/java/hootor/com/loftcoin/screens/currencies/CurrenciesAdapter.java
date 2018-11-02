@@ -1,7 +1,9 @@
 package hootor.com.loftcoin.screens.currencies;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +45,7 @@ public class CurrenciesAdapter extends RecyclerView.Adapter<CurrenciesAdapter.Cu
 
     @Override
     public void onBindViewHolder(@NonNull CurrencyViewHolder holder, int position) {
-        holder.bind(coins.get(position), listener);
+        holder.bind(coins.get(position), listener, position);
     }
 
     @Override
@@ -59,12 +61,16 @@ public class CurrenciesAdapter extends RecyclerView.Adapter<CurrenciesAdapter.Cu
         @BindView(R.id.currency_name)
         TextView name;
 
+        private Context context;
+
         CurrencyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            context = itemView.getContext();
         }
 
-        void bind(CoinEntity coin, CurrenciesAdapterListener listener) {
+        void bind(CoinEntity coin, CurrenciesAdapterListener listener, int position) {
             bindIcon(coin);
             bindName(coin);
             itemView.setOnClickListener(v -> {
@@ -72,6 +78,13 @@ public class CurrenciesAdapter extends RecyclerView.Adapter<CurrenciesAdapter.Cu
                     listener.onCurrencyClick(coin);
                 }
             });
+
+            if (position % 2 == 0) {
+                itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.rate_item_background_even));
+            } else {
+                itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.rate_item_background_odd));
+            }
+
         }
 
         private void bindIcon(CoinEntity coin) {

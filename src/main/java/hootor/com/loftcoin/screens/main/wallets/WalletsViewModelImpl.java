@@ -32,6 +32,8 @@ public class WalletsViewModelImpl extends WalletsViewModel {
     private SingleLiveEvent<Object> selectCurrency = new SingleLiveEvent<>();
     private SingleLiveEvent<Object> scrollToNewWallet = new SingleLiveEvent<>();
 
+    private MutableLiveData<Object> currentNewWallet = new hootor.com.loftcoin.screens.main.wallets.SingleLiveEvent<>();
+
     private Database database;
 
     private CompositeDisposable disposables = new CompositeDisposable();
@@ -49,6 +51,11 @@ public class WalletsViewModelImpl extends WalletsViewModel {
     @Override
     public LiveData<Object> selectCurrency() {
         return selectCurrency;
+    }
+
+    @Override
+    public LiveData<Object> currentNewWallet() {
+        return currentNewWallet;
     }
 
     @Override
@@ -122,7 +129,8 @@ public class WalletsViewModelImpl extends WalletsViewModel {
 
     @Override
     public void onNewWalletClick() {
-        selectCurrency.setValue(new Object());
+//        selectCurrency.setValue(new Object());
+        currentNewWallet.setValue(new Object());
     }
 
     @Override

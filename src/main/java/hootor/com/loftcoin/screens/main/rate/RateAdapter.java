@@ -145,7 +145,11 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
 
             float percentChangeValue = quote.percentChange24h;
 
-            percentChange.setText(context.getString(R.string.rate_item_percent_change, percentChangeValue));
+            if (percentChangeValue >= 0) {
+                percentChange.setText(context.getString(R.string.rate_item_percent_change_plus, percentChangeValue));
+            } else {
+                percentChange.setText(context.getString(R.string.rate_item_percent_change, percentChangeValue));
+            }
 
             if (percentChangeValue >= 0) {
                 percentChange.setTextColor(context.getResources().getColor(R.color.percent_change_up));

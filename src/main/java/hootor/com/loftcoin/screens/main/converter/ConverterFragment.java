@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public class ConverterFragment extends Fragment {
+
+    private static final String TAG = "ConverterFragment";
+
     private static final String SOURCE_CURRENCY_BOTTOM_SHEET_TAG = "source_currency_bottom_sheet";
     private static final String DESTINATION_CURRENCY_BOTTOM_SHEET_TAG = "destination_currency_bottom_sheet";
     @BindView(R.id.converter_toolbar)
@@ -107,8 +111,16 @@ public class ConverterFragment extends Fragment {
         Disposable disposable1 = RxTextView.afterTextChangeEvents(sourceAmount)
                 .debounce(200, TimeUnit.MILLISECONDS)
                 .filter(textViewAfterTextChangeEvent -> {
-                    String textSouse = textViewAfterTextChangeEvent.editable().toString();
-                    return !TextUtils.isEmpty(textSouse);
+                    String textSouse = textViewAfterTextChangeEvent.editable().toString().trim();
+                    boolean isSucces = true;
+                    if (TextUtils.isEmpty(textSouse)) {
+                        isSucces = false;
+                    } else if(textSouse.substring(0,1).equals(".")) {
+                           isSucces = false;
+                        Log.i(TAG, "initOutputs: " + textSouse.substring(0,1));
+                    }
+
+                    return isSucces;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(event ->

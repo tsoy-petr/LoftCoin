@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#191a29</color>
-    <color name="colorPrimaryDark">#191a29</color>
+    <color name="colorPrimaryDark">#10101a</color>
     <color name="colorAccent">#66688F</color>
 
     <color name="green">#3DE77B</color>
@@ -16,7 +16,7 @@
     <color name="percent_change_up">@color/green</color>
     <color name="percent_change_down">@color/red</color>
 
-    <color name="wallet_card_background">#2E2F47</color>
+    <color name="wallet_card_background">#2e2f47</color>
     <color name="secondary_text_color_dark">#66688F</color>
 
     <color name="transaction_income">@color/green</color>

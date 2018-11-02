@@ -20,7 +20,7 @@
     <string name="rate_menu_item_sort">Сортировка</string>
     <string name="rate_menu_item_currency">Валюта</string>
     <string name="rate_item_percent_change" translatable="false">%.2f%%</string>
-
+    <string name="rate_item_percent_change_plus" translatable="false">+%.2f%%</string>
     <string name="currency_amount">%s %s</string>
 
     <string name="dialog_currency_title">Выбор валюты</string>
