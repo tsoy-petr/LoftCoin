@@ -15,9 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import com.jakewharton.rxbinding2.support.v7.widget.RxToolbar;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +34,7 @@ import hootor.com.loftcoin.screens.currencies.CurrenciesBottomSheet;
 import hootor.com.loftcoin.screens.currencies.CurrenciesBottomSheetListener;
 import hootor.com.loftcoin.screens.main.wallets.adapters.TransactionsAdapter;
 import hootor.com.loftcoin.screens.main.wallets.adapters.WalletsPagerAdapter;
+import io.reactivex.observers.DisposableObserver;
 
 public class WalletsFragment extends Fragment implements CurrenciesBottomSheetListener {
 
@@ -118,10 +124,32 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
     private void initOutputs() {
         newWallet.setOnClickListener(view -> viewModel.onNewWalletClick());
 
-        toolbar.getMenu().findItem(R.id.menu_item_add_wallet).setOnMenuItemClickListener(menuItem -> {
-            viewModel.onNewWalletClick();
-            return true;
+        RxToolbar.itemClicks(toolbar).
+                debounce(200, TimeUnit.MILLISECONDS)
+        .subscribe(new DisposableObserver<MenuItem>() {
+            @Override
+            public void onNext(MenuItem menuItem) {
+                viewModel.onNewWalletClick();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
         });
+//        RxToolbar.itemClicks(toolbar)
+//                .filter(item -> item.getItemId() == R.id.menu_refresh)
+//                .subscribe(item -> showPhoto(true));
+
+//        toolbar.getMenu().findItem(R.id.menu_item_add_wallet).setOnMenuItemClickListener(menuItem -> {
+//            viewModel.onNewWalletClick();
+//            return true;
+//        });
 
         walletsPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
