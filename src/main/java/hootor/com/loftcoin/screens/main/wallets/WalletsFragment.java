@@ -34,6 +34,7 @@ import hootor.com.loftcoin.screens.currencies.CurrenciesBottomSheet;
 import hootor.com.loftcoin.screens.currencies.CurrenciesBottomSheetListener;
 import hootor.com.loftcoin.screens.main.wallets.adapters.TransactionsAdapter;
 import hootor.com.loftcoin.screens.main.wallets.adapters.WalletsPagerAdapter;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 
 public class WalletsFragment extends Fragment implements CurrenciesBottomSheetListener {
@@ -125,23 +126,24 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
         newWallet.setOnClickListener(view -> viewModel.onNewWalletClick());
 
         RxToolbar.itemClicks(toolbar).
-                debounce(200, TimeUnit.MILLISECONDS)
-        .subscribe(new DisposableObserver<MenuItem>() {
-            @Override
-            public void onNext(MenuItem menuItem) {
-                viewModel.onNewWalletClick();
-            }
+                debounce(300, TimeUnit.MILLISECONDS).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new DisposableObserver<MenuItem>() {
+                    @Override
+                    public void onNext(MenuItem menuItem) {
+                        viewModel.onNewWalletClick();
+                    }
 
-            @Override
-            public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 
-            }
+                    }
 
-            @Override
-            public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-            }
-        });
+                    }
+                });
 //        RxToolbar.itemClicks(toolbar)
 //                .filter(item -> item.getItemId() == R.id.menu_refresh)
 //                .subscribe(item -> showPhoto(true));
@@ -151,7 +153,7 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
 //            return true;
 //        });
 
-        walletsPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        walletsPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 viewModel.onWalletChanged(position);
