@@ -126,12 +126,14 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
         newWallet.setOnClickListener(view -> viewModel.onNewWalletClick());
 
         RxToolbar.itemClicks(toolbar).
-                debounce(300, TimeUnit.MILLISECONDS).
+                debounce(350, TimeUnit.MILLISECONDS).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new DisposableObserver<MenuItem>() {
                     @Override
                     public void onNext(MenuItem menuItem) {
-                        viewModel.onNewWalletClick();
+                        if (isVisible()) {
+                            viewModel.onNewWalletClick();
+                        }
                     }
 
                     @Override
@@ -144,14 +146,7 @@ public class WalletsFragment extends Fragment implements CurrenciesBottomSheetLi
 
                     }
                 });
-//        RxToolbar.itemClicks(toolbar)
-//                .filter(item -> item.getItemId() == R.id.menu_refresh)
-//                .subscribe(item -> showPhoto(true));
 
-//        toolbar.getMenu().findItem(R.id.menu_item_add_wallet).setOnMenuItemClickListener(menuItem -> {
-//            viewModel.onNewWalletClick();
-//            return true;
-//        });
 
         walletsPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
